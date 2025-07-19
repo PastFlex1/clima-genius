@@ -7,6 +7,7 @@ import CurrentWeather from "./current-weather";
 import Forecast from "./forecast";
 import WeatherHistoryChart from "./weather-history-chart";
 import ClothingAdvisor from "./clothing-advisor";
+import LiveClock from "./live-clock";
 
 import {
   Select,
@@ -19,15 +20,18 @@ import { MapPin } from "lucide-react";
 
 const WeatherDashboard = () => {
   const [selectedCityId, setSelectedCityId] = useState<string>(CITIES_DATA[0].id);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   const weatherData = useMemo(() => {
     return CITIES_DATA.find((city) => city.id === selectedCityId) || CITIES_DATA[0];
   }, [selectedCityId]);
 
+  const currentHour = currentTime.getHours();
+
   return (
     <div className="space-y-6">
-      <div className="flex justify-center">
-        <div className="w-full max-w-xs">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <div className="w-full sm:w-auto sm:max-w-xs">
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Select onValueChange={setSelectedCityId} defaultValue={selectedCityId}>
@@ -44,6 +48,7 @@ const WeatherDashboard = () => {
             </Select>
           </div>
         </div>
+        <LiveClock onTimeUpdate={setCurrentTime} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -57,7 +62,7 @@ const WeatherDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-           <Forecast hourly={weatherData.hourly} daily={weatherData.daily} />
+           <Forecast hourly={weatherData.hourly} daily={weatherData.daily} currentHour={currentHour} />
         </div>
         <div className="lg:col-span-1">
           <WeatherHistoryChart data={weatherData.history} />

@@ -11,13 +11,16 @@ import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
 import { Droplet, Wind } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { cn } from "@/lib/utils";
+
 
 type ForecastProps = {
   hourly: HourlyForecast[];
   daily: DailyForecast[];
+  currentHour: number;
 };
 
-const Forecast = ({ hourly, daily }: ForecastProps) => {
+const Forecast = ({ hourly, daily, currentHour }: ForecastProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
@@ -33,41 +36,48 @@ const Forecast = ({ hourly, daily }: ForecastProps) => {
           </h3>
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              {hourly.map((forecast, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center min-w-[90px] p-2 bg-secondary/50 rounded-lg space-y-1"
-                >
-                  <p className="text-sm text-muted-foreground">
-                    {forecast.time}
-                  </p>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <WeatherIcon
-                          description={forecast.description}
-                          className="w-8 h-8 my-1 text-accent"
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="capitalize">{forecast.description}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+              {hourly.map((forecast, index) => {
+                 const forecastHour = parseInt(forecast.time.split(":")[0]);
+                 const isActive = forecastHour === currentHour;
+                 return (
+                    <div
+                      key={index}
+                      className={cn(
+                        "flex flex-col items-center justify-center min-w-[90px] p-2 rounded-lg space-y-1 transition-all duration-300",
+                        isActive ? "bg-primary text-primary-foreground" : "bg-secondary/50"
+                      )}
+                    >
+                      <p className={cn("text-sm", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>
+                        {forecast.time}
+                      </p>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <WeatherIcon
+                              description={forecast.description}
+                              className={cn("w-8 h-8 my-1", isActive ? "text-primary-foreground" : "text-accent")}
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="capitalize">{forecast.description}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
 
-                  <p className="font-bold text-lg">{forecast.temperature}°</p>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                     <div className="flex items-center gap-1">
-                        <Droplet className="w-3 h-3"/>
-                        <span>{forecast.precipitationChance}%</span>
+                      <p className="font-bold text-lg">{forecast.temperature}°</p>
+                      <div className={cn("flex items-center gap-2 text-xs", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>
+                         <div className="flex items-center gap-1">
+                            <Droplet className="w-3 h-3"/>
+                            <span>{forecast.precipitationChance}%</span>
+                        </div>
+                         <div className="flex items-center gap-1">
+                            <Wind className="w-3 h-3"/>
+                            <span>{forecast.windSpeed}</span>
+                        </div>
+                      </div>
                     </div>
-                     <div className="flex items-center gap-1">
-                        <Wind className="w-3 h-3"/>
-                        <span>{forecast.windSpeed}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                 )
+              })}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
