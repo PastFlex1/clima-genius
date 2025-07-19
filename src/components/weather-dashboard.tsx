@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { CITIES_DATA } from "@/lib/mock-data";
 import type { WeatherData } from "@/lib/types";
 import CurrentWeather from "./current-weather";
@@ -20,13 +20,25 @@ import { MapPin } from "lucide-react";
 
 const WeatherDashboard = () => {
   const [selectedCityId, setSelectedCityId] = useState<string>(CITIES_DATA[0].id);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setCurrentTime(new Date());
+  }, []);
 
   const weatherData = useMemo(() => {
     return CITIES_DATA.find((city) => city.id === selectedCityId) || CITIES_DATA[0];
   }, [selectedCityId]);
 
-  const currentHour = currentTime.getHours();
+  const currentHour = currentTime ? currentTime.getHours() : -1;
+
+  if (!currentTime) {
+    return (
+        <div className="flex justify-center items-center min-h-[50vh]">
+            <div className="text-primary animate-pulse">Cargando datos del clima...</div>
+        </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
