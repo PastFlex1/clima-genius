@@ -5,6 +5,7 @@ export type LocationData = {
 
 export type CurrentWeather = {
   temperature: number;
+  feelsLike: number;
   humidity: number;
   pressure: number;
   windSpeed: number;
@@ -15,6 +16,8 @@ export type HourlyForecast = {
   time: string;
   temperature: number;
   description: string;
+  precipitationChance: number;
+  windSpeed: number;
 };
 
 export type DailyForecast = {
@@ -22,6 +25,7 @@ export type DailyForecast = {
   high: number;
   low: number;
   description: string;
+  precipitationChance: number;
 };
 
 export type HistoricalData = {

@@ -19,7 +19,7 @@ const CurrentWeather = ({ city, data }: CurrentWeatherProps) => {
     <Card className="w-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle className="text-2xl font-headline">Clima actual en {city}</CardTitle>
-        <CardDescription>Cómo se siente ahora mismo.</CardDescription>
+        <CardDescription>Datos actualizados de fuentes fiables.</CardDescription>
       </CardHeader>
       <CardContent className="grid grid-cols-2 gap-6">
         <div className="flex flex-col items-center justify-center space-y-4">
@@ -53,7 +53,7 @@ const CurrentWeather = ({ city, data }: CurrentWeatherProps) => {
            <div className="flex flex-col items-center justify-center p-4 bg-secondary/50 rounded-lg space-y-1 text-center">
             <Thermometer className="w-6 h-6 text-primary" />
             <span className="font-semibold">Sensación</span>
-            <span className="text-lg font-bold">{Math.round(data.temperature * 1.1)}°</span>
+            <span className="text-lg font-bold">{data.feelsLike}°</span>
           </div>
         </div>
       </CardContent>
