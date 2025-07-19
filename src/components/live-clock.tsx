@@ -8,9 +8,16 @@ type LiveClockProps = {
 };
 
 const LiveClock = ({ onTimeUpdate }: LiveClockProps) => {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
+    // Set initial time on client mount
+    const initialTime = new Date();
+    setTime(initialTime);
+    if (onTimeUpdate) {
+      onTimeUpdate(initialTime);
+    }
+    
     const timerId = setInterval(() => {
       const newTime = new Date();
       setTime(newTime);
@@ -25,13 +32,13 @@ const LiveClock = ({ onTimeUpdate }: LiveClockProps) => {
   }, [onTimeUpdate]);
 
   return (
-    <div className="flex items-center justify-center gap-2 text-lg font-medium text-muted-foreground p-2 bg-muted/50 rounded-md">
+    <div className="flex items-center justify-center gap-2 text-lg font-medium text-muted-foreground p-2 bg-muted/50 rounded-md min-w-[100px] h-[40px]">
       <Clock className="h-5 w-5" />
       <span>
-        {time.toLocaleTimeString("es-ES", {
+        {time ? time.toLocaleTimeString("es-ES", {
           hour: "2-digit",
           minute: "2-digit",
-        })}
+        }) : "--:--"}
       </span>
     </div>
   );
