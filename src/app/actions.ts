@@ -17,7 +17,7 @@ export async function getClothingAdviceAction({
   try {
     const forecastText = dailyForecast
       .map(
-        (day) => `${day.day}: ${day.description}, High ${day.high}°C, Low ${day.low}°C.`
+        (day) => `${day.day}: ${day.description}, Máx ${day.high}°C, Mín ${day.low}°C.`
       )
       .join(" ");
 
@@ -32,6 +32,6 @@ export async function getClothingAdviceAction({
     return result;
   } catch (error) {
     console.error("Error in getClothingAdviceAction:", error);
-    return { recommendation: "Sorry, I couldn't generate advice right now. Please try again later." };
+    return { recommendation: "Lo siento, no pude generar un consejo en este momento. Por favor, inténtalo de nuevo más tarde." };
   }
 }

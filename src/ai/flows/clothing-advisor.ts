@@ -13,19 +13,19 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const ClothingAdvisorInputSchema = z.object({
-  location: z.string().describe('The city for which to get clothing recommendations.'),
-  temperature: z.number().describe('The current temperature in Celsius.'),
-  humidity: z.number().describe('The current humidity (percentage).'),
-  windSpeed: z.number().describe('The current wind speed in km/h.'),
+  location: z.string().describe('La ciudad para la que se obtendrán recomendaciones de ropa.'),
+  temperature: z.number().describe('La temperatura actual en Celsius.'),
+  humidity: z.number().describe('La humedad actual (porcentaje).'),
+  windSpeed: z.number().describe('La velocidad actual del viento en km/h.'),
   weatherDescription: z
     .string()
-    .describe('A short description of the current weather conditions.'),
-  forecast: z.string().describe('A short weather forecast for the day.'),
+    .describe('Una breve descripción de las condiciones meteorológicas actuales.'),
+  forecast: z.string().describe('Un breve pronóstico del tiempo para el día.'),
 });
 export type ClothingAdvisorInput = z.infer<typeof ClothingAdvisorInputSchema>;
 
 const ClothingAdvisorOutputSchema = z.object({
-  recommendation: z.string().describe('A detailed clothing recommendation for the day.'),
+  recommendation: z.string().describe('Una recomendación detallada de ropa para el día.'),
 });
 export type ClothingAdvisorOutput = z.infer<typeof ClothingAdvisorOutputSchema>;
 
@@ -37,17 +37,17 @@ const prompt = ai.definePrompt({
   name: 'clothingAdvisorPrompt',
   input: {schema: ClothingAdvisorInputSchema},
   output: {schema: ClothingAdvisorOutputSchema},
-  prompt: `You are a personal stylist who gives clothing recommendations based on the weather.
+  prompt: `Eres un estilista personal que da recomendaciones de ropa basadas en el clima. Tu respuesta debe estar en español.
 
-  Current Weather in {{{location}}}:
-  Temperature: {{{temperature}}}°C
-  Humidity: {{{humidity}}}%
-  Wind Speed: {{{windSpeed}}} km/h
-  Description: {{{weatherDescription}}}
+  Clima actual en {{{location}}}:
+  Temperatura: {{{temperature}}}°C
+  Humedad: {{{humidity}}}%
+  Velocidad del viento: {{{windSpeed}}} km/h
+  Descripción: {{{weatherDescription}}}
 
-  Forecast: {{{forecast}}}
+  Pronóstico: {{{forecast}}}
 
-  Provide a detailed recommendation for what to wear today. Consider layers, potential precipitation, and temperature fluctuations throughout the day.`,
+  Proporciona una recomendación detallada sobre qué ropa usar hoy. Considera las capas de ropa, las posibles precipitaciones y las fluctuaciones de temperatura durante el día.`,
 });
 
 const clothingAdvisorFlow = ai.defineFlow(

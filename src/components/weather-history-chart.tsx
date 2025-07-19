@@ -28,7 +28,7 @@ type WeatherHistoryChartProps = {
 
 const chartConfig = {
   avgTemp: {
-    label: "Avg. Temp (°C)",
+    label: "Temp. Prom. (°C)",
     color: "hsl(var(--accent))",
   },
 };
@@ -37,8 +37,8 @@ const WeatherHistoryChart = ({ data }: WeatherHistoryChartProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="font-headline">Historical Weather</CardTitle>
-        <CardDescription>Average temperature over the last 7 days.</CardDescription>
+        <CardTitle className="font-headline">Historial del Clima</CardTitle>
+        <CardDescription>Temperatura promedio de los últimos 7 días.</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[250px] w-full">

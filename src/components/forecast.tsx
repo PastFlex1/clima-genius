@@ -19,15 +19,15 @@ const Forecast = ({ hourly, daily }: ForecastProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="font-headline">Forecast</CardTitle>
+        <CardTitle className="font-headline">Pronóstico</CardTitle>
         <CardDescription>
-          Hourly and daily outlook for the upcoming week.
+          Perspectiva por hora y diaria para la próxima semana.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div>
           <h3 className="font-semibold mb-2 text-primary-foreground/90">
-            Next 8 Hours
+            Próximas 8 horas
           </h3>
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
@@ -55,7 +55,7 @@ const Forecast = ({ hourly, daily }: ForecastProps) => {
 
         <div>
           <h3 className="font-semibold mb-2 text-primary-foreground/90">
-            Next 7 Days
+            Próximos 7 días
           </h3>
           <ul className="space-y-2">
             {daily.map((forecast, index) => (
@@ -68,7 +68,7 @@ const Forecast = ({ hourly, daily }: ForecastProps) => {
                   description={forecast.description}
                   className="w-6 h-6 text-accent mx-2"
                 />
-                <span className="text-sm text-muted-foreground w-1/4 text-center">
+                <span className="text-sm text-muted-foreground w-1/4 text-center capitalize">
                   {forecast.description}
                 </span>
                 <div className="font-medium w-1/4 text-right">

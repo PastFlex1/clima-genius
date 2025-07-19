@@ -12,7 +12,7 @@ export default function Home() {
             ClimaGenius
           </h1>
           <p className="text-muted-foreground mt-2">
-            Your intelligent weather and style companion.
+            Tu asistente inteligente de clima y estilo.
           </p>
         </header>
         <WeatherDashboard />

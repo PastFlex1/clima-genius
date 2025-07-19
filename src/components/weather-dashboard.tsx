@@ -32,7 +32,7 @@ const WeatherDashboard = () => {
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Select onValueChange={setSelectedCityId} defaultValue={selectedCityId}>
               <SelectTrigger className="w-full pl-10 shadow-md">
-                <SelectValue placeholder="Select a city" />
+                <SelectValue placeholder="Selecciona una ciudad" />
               </SelectTrigger>
               <SelectContent>
                 {CITIES_DATA.map((city) => (

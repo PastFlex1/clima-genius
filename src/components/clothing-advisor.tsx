@@ -46,14 +46,14 @@ const ClothingAdvisor = ({ weatherData }: ClothingAdvisorProps) => {
       if (result?.recommendation) {
         setRecommendation(result.recommendation);
       } else {
-        throw new Error("Failed to get advice.");
+        throw new Error("No se pudieron obtener consejos.");
       }
     } catch (error) {
       console.error(error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Could not get clothing advice. Please try again.",
+        description: "No se pudo obtener el consejo de ropa. Por favor, inténtalo de nuevo.",
       });
       setIsDialogOpen(false);
     } finally {
@@ -64,15 +64,15 @@ const ClothingAdvisor = ({ weatherData }: ClothingAdvisorProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="font-headline">AI Clothing Advisor</CardTitle>
+        <CardTitle className="font-headline">Asesor de Ropa con IA</CardTitle>
         <CardDescription>
-          Get personalized clothing recommendations from our AI stylist.
+          Obtén recomendaciones de ropa personalizadas de nuestro estilista de IA.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center text-center space-y-4">
         <Shirt className="w-16 h-16 text-primary drop-shadow-lg" />
         <p className="text-muted-foreground">
-          Unsure what to wear? Let AI help you dress for the weather.
+          ¿No sabes qué ponerte? Deja que la IA te ayude a vestirte para el clima.
         </p>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
@@ -82,26 +82,26 @@ const ClothingAdvisor = ({ weatherData }: ClothingAdvisorProps) => {
               ) : (
                 <Sparkles className="mr-2 h-4 w-4" />
               )}
-              Get Style Advice
+              Obtener Consejo de Estilo
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Your Style Recommendation</DialogTitle>
+              <DialogTitle>Tu Recomendación de Estilo</DialogTitle>
               <DialogDescription>
-                Based on the weather in {weatherData.location.city}, here's what our AI stylist suggests.
+                Basado en el clima de {weatherData.location.city}, esto es lo que sugiere nuestro estilista de IA.
               </DialogDescription>
             </DialogHeader>
             <div className="py-4">
               {isLoading ? (
                 <div className="flex items-center justify-center space-x-2">
                   <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                  <span className="text-muted-foreground">Generating your personalized advice...</span>
+                  <span className="text-muted-foreground">Generando tu consejo personalizado...</span>
                 </div>
               ) : (
                  <Alert>
                   <Sparkles className="h-4 w-4" />
-                  <AlertTitle>Today's Outfit</AlertTitle>
+                  <AlertTitle>Atuendo de Hoy</AlertTitle>
                   <AlertDescription>
                    {recommendation}
                   </AlertDescription>
