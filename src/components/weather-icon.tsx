@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   Sun,
   Cloud,
@@ -17,9 +18,19 @@ interface WeatherIconProps extends LucideProps {
 }
 
 const WeatherIcon = ({ description, ...props }: WeatherIconProps) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const desc = description.toLowerCase();
 
   if (desc.includes("soleado") || desc.includes("despejado")) {
+    if (!isClient) {
+      // Render a default icon on the server to avoid mismatch
+      return <Sun {...props} />;
+    }
     const hour = new Date().getHours();
     if (hour > 19 || hour < 6) {
       return <Moon {...props} />;
