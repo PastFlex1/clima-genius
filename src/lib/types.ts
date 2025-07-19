@@ -9,6 +9,12 @@ export type CurrentWeather = {
   humidity: number;
   pressure: number;
   windSpeed: number;
+  windDirection: string;
+  uvIndex: number;
+  dewPoint: number;
+  visibility: number;
+  sunrise: string;
+  sunset: string;
   description: string;
 };
 
