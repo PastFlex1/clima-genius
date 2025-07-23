@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { CITIES_DATA } from "@/lib/mock-data";
 import type { WeatherData } from "@/lib/types";
 import CurrentWeather from "./current-weather";
@@ -20,19 +20,22 @@ import { MapPin } from "lucide-react";
 
 const WeatherDashboard = () => {
   const [selectedCityId, setSelectedCityId] = useState<string>(CITIES_DATA[0].id);
-  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [currentHour, setCurrentHour] = useState<number>(-1);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setCurrentTime(new Date());
+    setIsClient(true);
   }, []);
 
   const weatherData = useMemo(() => {
     return CITIES_DATA.find((city) => city.id === selectedCityId) || CITIES_DATA[0];
   }, [selectedCityId]);
 
-  const currentHour = currentTime ? currentTime.getHours() : -1;
-
-  if (!currentTime) {
+  const handleTimeUpdate = useCallback((date: Date) => {
+    setCurrentHour(date.getHours());
+  }, []);
+  
+  if (!isClient) {
     return (
         <div className="flex justify-center items-center min-h-[50vh]">
             <div className="text-primary animate-pulse">Cargando datos del clima...</div>
@@ -60,7 +63,7 @@ const WeatherDashboard = () => {
             </Select>
           </div>
         </div>
-        <LiveClock onTimeUpdate={setCurrentTime} />
+        <LiveClock timeZone={weatherData.location.timeZone} onTimeUpdate={handleTimeUpdate} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

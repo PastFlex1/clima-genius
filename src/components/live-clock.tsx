@@ -4,32 +4,38 @@ import { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
 
 type LiveClockProps = {
+  timeZone: string;
   onTimeUpdate?: (date: Date) => void;
 };
 
-const LiveClock = ({ onTimeUpdate }: LiveClockProps) => {
+const LiveClock = ({ timeZone, onTimeUpdate }: LiveClockProps) => {
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
-    // Set initial time on client mount
-    const initialTime = new Date();
-    setTime(initialTime);
-    if (onTimeUpdate) {
-      onTimeUpdate(initialTime);
-    }
+    const getInitialTime = () => {
+      const now = new Date();
+      const localTime = new Date(now.toLocaleString("en-US", { timeZone }));
+      setTime(localTime);
+      if (onTimeUpdate) {
+        onTimeUpdate(localTime);
+      }
+    };
+    
+    getInitialTime();
     
     const timerId = setInterval(() => {
-      const newTime = new Date();
-      setTime(newTime);
-      if (onTimeUpdate) {
-        onTimeUpdate(newTime);
+       const now = new Date();
+       const localTime = new Date(now.toLocaleString("en-US", { timeZone }));
+       setTime(localTime);
+       if (onTimeUpdate) {
+        onTimeUpdate(localTime);
       }
     }, 1000);
 
     return () => {
       clearInterval(timerId);
     };
-  }, [onTimeUpdate]);
+  }, [timeZone, onTimeUpdate]);
 
   return (
     <div className="flex items-center justify-center gap-2 text-lg font-medium text-muted-foreground p-2 bg-muted/50 rounded-md min-w-[100px] h-[40px]">

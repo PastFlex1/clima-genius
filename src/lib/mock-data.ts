@@ -3,7 +3,7 @@ import type { WeatherData } from "./types";
 export const CITIES_DATA: WeatherData[] = [
   {
     id: "madrid",
-    location: { city: "Madrid", country: "España" },
+    location: { city: "Madrid", country: "España", timeZone: "Europe/Madrid" },
     current: {
       temperature: 28,
       feelsLike: 29,
@@ -49,7 +49,7 @@ export const CITIES_DATA: WeatherData[] = [
   },
   {
     id: "buenos-aires",
-    location: { city: "Buenos Aires", country: "Argentina" },
+    location: { city: "Buenos Aires", country: "Argentina", timeZone: "America/Argentina/Buenos_Aires" },
     current: {
       temperature: 15,
       feelsLike: 13,
@@ -95,7 +95,7 @@ export const CITIES_DATA: WeatherData[] = [
   },
   {
     id: "mexico-city",
-    location: { city: "Ciudad de México", country: "México" },
+    location: { city: "Ciudad de México", country: "México", timeZone: "America/Mexico_City" },
     current: {
       temperature: 22,
       feelsLike: 22,

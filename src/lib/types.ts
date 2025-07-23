@@ -1,6 +1,7 @@
 export type LocationData = {
   city: string;
   country: string;
+  timeZone: string;
 };
 
 export type CurrentWeather = {
