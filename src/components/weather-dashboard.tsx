@@ -26,7 +26,7 @@ const WeatherDashboard = () => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
+  
   const weatherData = useMemo(() => {
     return CITIES_DATA.find((city) => city.id === selectedCityId) || CITIES_DATA[0];
   }, [selectedCityId]);
@@ -34,6 +34,19 @@ const WeatherDashboard = () => {
   const handleTimeUpdate = useCallback((date: Date) => {
     setCurrentHour(date.getHours());
   }, []);
+
+  useEffect(() => {
+    if (currentHour === -1) return;
+
+    const isNight = currentHour > 19 || currentHour < 6;
+    if (isNight) {
+      document.documentElement.classList.add("dark");
+      document.body.classList.add("dark:bg-gray-900");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark:bg-gray-900");
+    }
+  }, [currentHour]);
   
   if (!isClient) {
     return (
