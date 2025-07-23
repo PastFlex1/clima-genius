@@ -23,6 +23,7 @@ import WeatherIcon from "./weather-icon";
 type CurrentWeatherProps = {
   city: string;
   data: CurrentWeather;
+  currentHour: number | undefined;
 };
 
 const DataPoint = ({
@@ -46,7 +47,7 @@ const DataPoint = ({
   </div>
 );
 
-const CurrentWeather = ({ city, data }: CurrentWeatherProps) => {
+const CurrentWeather = ({ city, data, currentHour }: CurrentWeatherProps) => {
   return (
     <Card className="w-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
@@ -62,6 +63,7 @@ const CurrentWeather = ({ city, data }: CurrentWeatherProps) => {
           <div className="flex flex-col items-center justify-center space-y-4">
             <WeatherIcon
               description={data.description}
+              hour={currentHour}
               className="w-24 h-24 text-accent drop-shadow-lg"
             />
             <div className="text-center">

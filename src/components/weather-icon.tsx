@@ -15,9 +15,10 @@ import {
 
 interface WeatherIconProps extends LucideProps {
   description: string;
+  hour: number | undefined;
 }
 
-const WeatherIcon = ({ description, ...props }: WeatherIconProps) => {
+const WeatherIcon = ({ description, hour, ...props }: WeatherIconProps) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -27,11 +28,10 @@ const WeatherIcon = ({ description, ...props }: WeatherIconProps) => {
   const desc = description.toLowerCase();
 
   if (desc.includes("soleado") || desc.includes("despejado")) {
-    if (!isClient) {
+    if (!isClient || hour === undefined) {
       // Render a default icon on the server to avoid mismatch
       return <Sun {...props} />;
     }
-    const hour = new Date().getHours();
     if (hour > 19 || hour < 6) {
       return <Moon {...props} />;
     }

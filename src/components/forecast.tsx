@@ -55,6 +55,7 @@ const Forecast = ({ hourly, daily, currentHour }: ForecastProps) => {
                           <TooltipTrigger>
                             <WeatherIcon
                               description={forecast.description}
+                              hour={forecastHour}
                               className={cn("w-8 h-8 my-1", isActive ? "text-primary-foreground" : "text-accent")}
                             />
                           </TooltipTrigger>
@@ -101,6 +102,7 @@ const Forecast = ({ hourly, daily, currentHour }: ForecastProps) => {
                       <TooltipTrigger className="flex items-center gap-2">
                         <WeatherIcon
                           description={forecast.description}
+                          hour={12} // Default to midday for daily forecast icon
                           className="w-6 h-6 text-accent"
                         />
                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
