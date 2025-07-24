@@ -48,6 +48,16 @@ const DataPoint = ({
 );
 
 const CurrentWeather = ({ city, data, currentHour }: CurrentWeatherProps) => {
+
+  const getWeatherDescription = () => {
+    const desc = data.description.toLowerCase();
+    const isNight = currentHour !== undefined && (currentHour > 19 || currentHour < 6);
+    if ((desc.includes("soleado") || desc.includes("despejado")) && isNight) {
+      return "Despejado";
+    }
+    return data.description;
+  }
+
   return (
     <Card className="w-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
@@ -71,7 +81,7 @@ const CurrentWeather = ({ city, data, currentHour }: CurrentWeatherProps) => {
                 {data.temperature}°
               </p>
               <p className="text-muted-foreground text-lg capitalize">
-                {data.description}
+                {getWeatherDescription()}
               </p>
             </div>
           </div>
