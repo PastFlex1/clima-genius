@@ -1,10 +1,16 @@
 import type { WeatherData } from "./types";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 const today = new Date();
 const getFutureDate = (days: number) => {
   const date = new Date(today);
   date.setDate(date.getDate() + days);
   return date;
+};
+
+const getDayName = (date: Date) => {
+  return format(date, "EEE", { locale: es });
 };
 
 export const CITIES_DATA: WeatherData[] = [
@@ -37,12 +43,12 @@ export const CITIES_DATA: WeatherData[] = [
     ],
     daily: [
       { day: "Hoy", high: 30, low: 18, description: "soleado", precipitationChance: 5, date: getFutureDate(0) },
-      { day: "Lun", high: 31, low: 19, description: "soleado", precipitationChance: 10, date: getFutureDate(1) },
-      { day: "Mar", high: 29, low: 17, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(2) },
-      { day: "Mié", high: 27, low: 16, description: "lluvia ligera", precipitationChance: 60, date: getFutureDate(3) },
-      { day: "Jue", high: 28, low: 16, description: "parcialmente nublado", precipitationChance: 25, date: getFutureDate(4) },
-      { day: "Vie", high: 30, low: 18, description: "soleado", precipitationChance: 10, date: getFutureDate(5) },
-      { day: "Sáb", high: 32, low: 20, description: "soleado", precipitationChance: 5, date: getFutureDate(6) },
+      { day: getDayName(getFutureDate(1)), high: 31, low: 19, description: "soleado", precipitationChance: 10, date: getFutureDate(1) },
+      { day: getDayName(getFutureDate(2)), high: 29, low: 17, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(2) },
+      { day: getDayName(getFutureDate(3)), high: 27, low: 16, description: "lluvia ligera", precipitationChance: 60, date: getFutureDate(3) },
+      { day: getDayName(getFutureDate(4)), high: 28, low: 16, description: "parcialmente nublado", precipitationChance: 25, date: getFutureDate(4) },
+      { day: getDayName(getFutureDate(5)), high: 30, low: 18, description: "soleado", precipitationChance: 10, date: getFutureDate(5) },
+      { day: getDayName(getFutureDate(6)), high: 32, low: 20, description: "soleado", precipitationChance: 5, date: getFutureDate(6) },
     ],
     history: [
       { date: "Hace 7 días", avgTemp: 24 },
@@ -83,12 +89,12 @@ export const CITIES_DATA: WeatherData[] = [
     ],
     daily: [
       { day: "Hoy", high: 17, low: 10, description: "nublado", precipitationChance: 50, date: getFutureDate(0) },
-      { day: "Lun", high: 18, low: 11, description: "chubascos", precipitationChance: 70, date: getFutureDate(1) },
-      { day: "Mar", high: 19, low: 12, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(2) },
-      { day: "Mié", high: 20, low: 13, description: "soleado", precipitationChance: 10, date: getFutureDate(3) },
-      { day: "Jue", high: 21, low: 14, description: "soleado", precipitationChance: 5, date: getFutureDate(4) },
-      { day: "Vie", high: 19, low: 12, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(5) },
-      { day: "Sáb", high: 18, low: 11, description: "nublado", precipitationChance: 40, date: getFutureDate(6) },
+      { day: getDayName(getFutureDate(1)), high: 18, low: 11, description: "chubascos", precipitationChance: 70, date: getFutureDate(1) },
+      { day: getDayName(getFutureDate(2)), high: 19, low: 12, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(2) },
+      { day: getDayName(getFutureDate(3)), high: 20, low: 13, description: "soleado", precipitationChance: 10, date: getFutureDate(3) },
+      { day: getDayName(getFutureDate(4)), high: 21, low: 14, description: "soleado", precipitationChance: 5, date: getFutureDate(4) },
+      { day: getDayName(getFutureDate(5)), high: 19, low: 12, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(5) },
+      { day: getDayName(getFutureDate(6)), high: 18, low: 11, description: "nublado", precipitationChance: 40, date: getFutureDate(6) },
     ],
     history: [
         { date: "Hace 7 días", avgTemp: 14 },
@@ -129,12 +135,12 @@ export const CITIES_DATA: WeatherData[] = [
     ],
     daily: [
       { day: "Hoy", high: 24, low: 14, description: "tormentas", precipitationChance: 80, date: getFutureDate(0) },
-      { day: "Lun", high: 25, low: 15, description: "tormentas", precipitationChance: 85, date: getFutureDate(1) },
-      { day: "Mar", high: 24, low: 14, description: "chubascos", precipitationChance: 70, date: getFutureDate(2) },
-      { day: "Mié", high: 26, low: 16, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(3) },
-      { day: "Jue", high: 27, low: 17, description: "parcialmente nublado", precipitationChance: 25, date: getFutureDate(4) },
-      { day: "Vie", high: 26, low: 16, description: "chubascos", precipitationChance: 60, date: getFutureDate(5) },
-      { day: "Sáb", high: 25, low: 15, description: "tormentas", precipitationChance: 75, date: getFutureDate(6) },
+      { day: getDayName(getFutureDate(1)), high: 25, low: 15, description: "tormentas", precipitationChance: 85, date: getFutureDate(1) },
+      { day: getDayName(getFutureDate(2)), high: 24, low: 14, description: "chubascos", precipitationChance: 70, date: getFutureDate(2) },
+      { day: getDayName(getFutureDate(3)), high: 26, low: 16, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(3) },
+      { day: getDayName(getFutureDate(4)), high: 27, low: 17, description: "parcialmente nublado", precipitationChance: 25, date: getFutureDate(4) },
+      { day: getDayName(getFutureDate(5)), high: 26, low: 16, description: "chubascos", precipitationChance: 60, date: getFutureDate(5) },
+      { day: getDayName(getFutureDate(6)), high: 25, low: 15, description: "tormentas", precipitationChance: 75, date: getFutureDate(6) },
     ],
     history: [
         { date: "Hace 7 días", avgTemp: 21 },
@@ -175,12 +181,12 @@ export const CITIES_DATA: WeatherData[] = [
     ],
     daily: [
       { day: "Hoy", high: 30, low: 24, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(0) },
-      { day: "Lun", high: 31, low: 25, description: "chubascos", precipitationChance: 60, date: getFutureDate(1) },
-      { day: "Mar", high: 29, low: 24, description: "soleado", precipitationChance: 10, date: getFutureDate(2) },
-      { day: "Mié", high: 32, low: 26, description: "soleado", precipitationChance: 5, date: getFutureDate(3) },
-      { day: "Jue", high: 31, low: 25, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(4) },
-      { day: "Vie", high: 30, low: 24, description: "parcialmente nublado", precipitationChance: 40, date: getFutureDate(5) },
-      { day: "Sáb", high: 29, low: 23, description: "chubascos", precipitationChance: 70, date: getFutureDate(6) },
+      { day: getDayName(getFutureDate(1)), high: 31, low: 25, description: "chubascos", precipitationChance: 60, date: getFutureDate(1) },
+      { day: getDayName(getFutureDate(2)), high: 29, low: 24, description: "soleado", precipitationChance: 10, date: getFutureDate(2) },
+      { day: getDayName(getFutureDate(3)), high: 32, low: 26, description: "soleado", precipitationChance: 5, date: getFutureDate(3) },
+      { day: getDayName(getFutureDate(4)), high: 31, low: 25, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(4) },
+      { day: getDayName(getFutureDate(5)), high: 30, low: 24, description: "parcialmente nublado", precipitationChance: 40, date: getFutureDate(5) },
+      { day: getDayName(getFutureDate(6)), high: 29, low: 23, description: "chubascos", precipitationChance: 70, date: getFutureDate(6) },
     ],
     history: [
       { date: "Hace 7 días", avgTemp: 27 },
@@ -221,12 +227,12 @@ export const CITIES_DATA: WeatherData[] = [
     ],
     daily: [
       { day: "Hoy", high: 24, low: 15, description: "soleado", precipitationChance: 10, date: getFutureDate(0) },
-      { day: "Lun", high: 25, low: 16, description: "soleado", precipitationChance: 5, date: getFutureDate(1) },
-      { day: "Mar", high: 23, low: 14, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(2) },
-      { day: "Mié", high: 21, low: 13, description: "lluvia ligera", precipitationChance: 50, date: getFutureDate(3) },
-      { day: "Jue", high: 22, low: 14, description: "parcialmente nublado", precipitationChance: 25, date: getFutureDate(4) },
-      { day: "Vie", high: 24, low: 15, description: "soleado", precipitationChance: 10, date: getFutureDate(5) },
-      { day: "Sáb", high: 26, low: 17, description: "soleado", precipitationChance: 5, date: getFutureDate(6) },
+      { day: getDayName(getFutureDate(1)), high: 25, low: 16, description: "soleado", precipitationChance: 5, date: getFutureDate(1) },
+      { day: getDayName(getFutureDate(2)), high: 23, low: 14, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(2) },
+      { day: getDayName(getFutureDate(3)), high: 21, low: 13, description: "lluvia ligera", precipitationChance: 50, date: getFutureDate(3) },
+      { day: getDayName(getFutureDate(4)), high: 22, low: 14, description: "parcialmente nublado", precipitationChance: 25, date: getFutureDate(4) },
+      { day: getDayName(getFutureDate(5)), high: 24, low: 15, description: "soleado", precipitationChance: 10, date: getFutureDate(5) },
+      { day: getDayName(getFutureDate(6)), high: 26, low: 17, description: "soleado", precipitationChance: 5, date: getFutureDate(6) },
     ],
     history: [
       { date: "Hace 7 días", avgTemp: 19 },
@@ -267,12 +273,12 @@ export const CITIES_DATA: WeatherData[] = [
     ],
     daily: [
       { day: "Hoy", high: 22, low: 15, description: "parcialmente nublado", precipitationChance: 20, date: getFutureDate(0) },
-      { day: "Lun", high: 21, low: 14, description: "chubascos", precipitationChance: 60, date: getFutureDate(1) },
-      { day: "Mar", high: 20, low: 13, description: "chubascos", precipitationChance: 70, date: getFutureDate(2) },
-      { day: "Mié", high: 22, low: 14, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(3) },
-      { day: "Jue", high: 23, low: 15, description: "soleado", precipitationChance: 10, date: getFutureDate(4) },
-      { day: "Vie", high: 24, low: 16, description: "soleado", precipitationChance: 5, date: getFutureDate(5) },
-      { day: "Sáb", high: 23, low: 15, description: "parcialmente nublado", precipitationChance: 15, date: getFutureDate(6) },
+      { day: getDayName(getFutureDate(1)), high: 21, low: 14, description: "chubascos", precipitationChance: 60, date: getFutureDate(1) },
+      { day: getDayName(getFutureDate(2)), high: 20, low: 13, description: "chubascos", precipitationChance: 70, date: getFutureDate(2) },
+      { day: getDayName(getFutureDate(3)), high: 22, low: 14, description: "parcialmente nublado", precipitationChance: 30, date: getFutureDate(3) },
+      { day: getDayName(getFutureDate(4)), high: 23, low: 15, description: "soleado", precipitationChance: 10, date: getFutureDate(4) },
+      { day: getDayName(getFutureDate(5)), high: 24, low: 16, description: "soleado", precipitationChance: 5, date: getFutureDate(5) },
+      { day: getDayName(getFutureDate(6)), high: 23, low: 15, description: "parcialmente nublado", precipitationChance: 15, date: getFutureDate(6) },
     ],
     history: [
       { date: "Hace 7 días", avgTemp: 18 },
