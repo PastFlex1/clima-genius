@@ -36,17 +36,30 @@ const WeatherDashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (currentHour === -1) return;
-
+    if (currentHour === -1 || !weatherData) return;
+  
+    const sunsetTime = weatherData.current.sunset;
+    const [sunsetHour] = sunsetTime.split(':').map(Number);
+  
     const isNight = currentHour > 19 || currentHour < 6;
-    if (isNight) {
-      document.documentElement.classList.add("dark");
-      document.body.classList.add("dark:bg-gray-900");
+    const isSunset = currentHour >= sunsetHour - 1 && currentHour < sunsetHour + 1;
+  
+    const docElement = document.documentElement;
+    const body = document.body;
+  
+    docElement.classList.remove("dark", "sunset", "light");
+    body.classList.remove("dark:bg-gray-900");
+  
+    if (isSunset) {
+      docElement.classList.add("sunset");
+    } else if (isNight) {
+      docElement.classList.add("dark");
+      body.classList.add("dark:bg-gray-900");
     } else {
-      document.documentElement.classList.remove("dark");
-      document.body.classList.remove("dark:bg-gray-900");
+      docElement.classList.add("light");
     }
-  }, [currentHour]);
+  
+  }, [currentHour, weatherData]);
   
   if (!isClient) {
     return (
