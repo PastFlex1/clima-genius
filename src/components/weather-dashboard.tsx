@@ -122,7 +122,7 @@ const WeatherDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-           <Forecast hourly={weatherData.hourly} daily={weatherData.daily} currentHour={currentHour} />
+           <Forecast hourly={weatherData.hourly} daily={weatherData.daily} currentHour={currentHour!} />
         </div>
         <div className="lg:col-span-1">
           <WeatherHistoryChart data={weatherData.history} />

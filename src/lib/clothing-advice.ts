@@ -104,7 +104,7 @@ export const getClothingAdvice = ({
      };
   }
 
-  // Default advice for temperate weather
+  // Asesoramiento por defecto para clima templado
   return {
     title: "Clima Templado",
     items: [

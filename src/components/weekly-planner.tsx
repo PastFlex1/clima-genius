@@ -40,12 +40,10 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
       const advice = getClothingAdvice({
         description: selected.description,
         temperature: (selected.high + selected.low) / 2,
-        windSpeed: 0, // Mock windspeed as it's not in daily data
+        windSpeed: 0, 
       });
       setRecommendation(advice);
-      setIsDialogOpen(false); // Close dialog on select
     } else {
-        // Handle case where date is selected but not in forecast
         setSelectedDay({
             date: date,
             day: format(date, "EEE", {locale: es}),
@@ -88,12 +86,14 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
             </Button>
           </DialogTrigger>
           <DialogContent className="w-auto p-0" showCloseButton={false}>
-             <DialogHeader className="sr-only">
-              <DialogTitle>Seleccionar una fecha</DialogTitle>
-              <DialogDescription>
-                Elige una fecha del calendario para ver la previsión meteorológica y las recomendaciones de ropa.
-              </DialogDescription>
-            </DialogHeader>
+            <div className="sr-only">
+              <DialogHeader>
+                <DialogTitle>Seleccionar una fecha</DialogTitle>
+                <DialogDescription>
+                  Elige una fecha del calendario para ver la previsión meteorológica y las recomendaciones de ropa.
+                </DialogDescription>
+              </DialogHeader>
+            </div>
             <Calendar
               mode="single"
               selected={selectedDay?.date}
