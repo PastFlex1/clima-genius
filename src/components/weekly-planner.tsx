@@ -13,7 +13,7 @@ import { Calendar as CalendarIcon, Thermometer, Wind, Umbrella, CloudSun, Eye } 
 import { Button } from "./ui/button";
 import { getClothingAdvice } from "@/lib/clothing-advice";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -88,6 +88,12 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
             </Button>
           </DialogTrigger>
           <DialogContent className="w-auto p-0" showCloseButton={false}>
+             <DialogHeader className="sr-only">
+              <DialogTitle>Seleccionar una fecha</DialogTitle>
+              <DialogDescription>
+                Elige una fecha del calendario para ver la previsión meteorológica y las recomendaciones de ropa.
+              </DialogDescription>
+            </DialogHeader>
             <Calendar
               mode="single"
               selected={selectedDay?.date}
