@@ -37,26 +37,31 @@ const WeatherDashboard = () => {
 
   useEffect(() => {
     if (currentHour === -1 || !weatherData) return;
-  
-    const sunsetTime = weatherData.current.sunset;
-    const [sunsetHour] = sunsetTime.split(':').map(Number);
-  
-    const isNight = currentHour > 19 || currentHour < 6;
-    const isSunset = currentHour >= sunsetHour - 1 && currentHour < sunsetHour + 1;
-  
+
+    const [sunriseHour] = weatherData.current.sunrise.split(':').map(Number);
+    const [sunsetHour] = weatherData.current.sunset.split(':').map(Number);
+    
     const docElement = document.documentElement;
-    const body = document.body;
   
-    docElement.classList.remove("dark", "sunset", "light");
-    body.classList.remove("dark:bg-gray-900");
-  
-    if (isSunset) {
-      docElement.classList.add("sunset");
-    } else if (isNight) {
-      docElement.classList.add("dark");
-      body.classList.add("dark:bg-gray-900");
-    } else {
-      docElement.classList.add("light");
+    docElement.classList.remove(
+      "theme-dawn", "theme-sunrise", "theme-morning", "theme-midday", 
+      "theme-afternoon", "theme-sunset", "theme-night", "light", "dark"
+    );
+
+    if (currentHour >= 0 && currentHour < sunriseHour - 1) { // Madrugada
+      docElement.classList.add("theme-dawn");
+    } else if (currentHour >= sunriseHour - 1 && currentHour < sunriseHour + 1) { // Amanecer
+      docElement.classList.add("theme-sunrise");
+    } else if (currentHour >= sunriseHour + 1 && currentHour < 12) { // Mañana
+      docElement.classList.add("theme-morning");
+    } else if (currentHour >= 12 && currentHour < 15) { // Mediodía
+      docElement.classList.add("theme-midday");
+    } else if (currentHour >= 15 && currentHour < sunsetHour - 1) { // Tarde
+      docElement.classList.add("theme-afternoon");
+    } else if (currentHour >= sunsetHour - 1 && currentHour < sunsetHour + 1) { // Atardecer
+      docElement.classList.add("theme-sunset");
+    } else { // Noche
+      docElement.classList.add("theme-night");
     }
   
   }, [currentHour, weatherData]);
