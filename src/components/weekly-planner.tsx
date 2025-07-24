@@ -44,7 +44,19 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
       });
       setRecommendation(advice);
       setIsDialogOpen(false); // Close dialog on select
+    } else {
+        // Handle case where date is selected but not in forecast
+        setSelectedDay({
+            date: date,
+            day: format(date, "EEE", {locale: es}),
+            description: "No disponible",
+            high: 0,
+            low: 0,
+            precipitationChance: 0
+        })
+        setRecommendation(null);
     }
+    setIsDialogOpen(false);
   };
   
   const IconMap: { [key: string]: React.ElementType } = {
@@ -75,19 +87,11 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
                 : "Elige una fecha"}
             </Button>
           </DialogTrigger>
-          <DialogContent className="w-auto p-0">
+          <DialogContent className="w-auto p-0" showCloseButton={false}>
             <Calendar
               mode="single"
               selected={selectedDay?.date}
               onSelect={handleDaySelect}
-              disabled={(date) => {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                const futureDate = new Date();
-                futureDate.setDate(today.getDate() + 6);
-                futureDate.setHours(23, 59, 59, 999);
-                return date < today || date > futureDate;
-              }}
               initialFocus
               locale={es}
             />
