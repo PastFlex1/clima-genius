@@ -33,6 +33,7 @@ export type DailyForecast = {
   low: number;
   description: string;
   precipitationChance: number;
+  date: Date;
 };
 
 export type HistoricalData = {

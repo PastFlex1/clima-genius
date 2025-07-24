@@ -8,6 +8,7 @@ import Forecast from "./forecast";
 import WeatherHistoryChart from "./weather-history-chart";
 import ClothingAdvisor from "./clothing-advisor";
 import LiveClock from "./live-clock";
+import WeeklyPlanner from "./weekly-planner";
 
 import {
   Select,
@@ -49,19 +50,19 @@ const WeatherDashboard = () => {
       "theme-afternoon", "theme-sunset", "theme-night", "light", "dark"
     );
 
-    if (currentHour >= 0 && currentHour < sunriseHour - 1) { // Madrugada
+    if (currentHour >= 5 && currentHour < sunriseHour) {
       docElement.classList.add("theme-dawn");
-    } else if (currentHour >= sunriseHour - 1 && currentHour < sunriseHour + 1) { // Amanecer
+    } else if (currentHour >= sunriseHour && currentHour < sunriseHour + 2) {
       docElement.classList.add("theme-sunrise");
-    } else if (currentHour >= sunriseHour + 1 && currentHour < 12) { // Mañana
+    } else if (currentHour >= sunriseHour + 2 && currentHour < 12) {
       docElement.classList.add("theme-morning");
-    } else if (currentHour >= 12 && currentHour < 15) { // Mediodía
+    } else if (currentHour >= 12 && currentHour < 16) {
       docElement.classList.add("theme-midday");
-    } else if (currentHour >= 15 && currentHour < sunsetHour - 1) { // Tarde
+    } else if (currentHour >= 16 && currentHour < sunsetHour - 1) {
       docElement.classList.add("theme-afternoon");
-    } else if (currentHour >= sunsetHour - 1 && currentHour < sunsetHour + 1) { // Atardecer
+    } else if (currentHour >= sunsetHour - 1 && currentHour < sunsetHour + 1) {
       docElement.classList.add("theme-sunset");
-    } else { // Noche
+    } else {
       docElement.classList.add("theme-night");
     }
   
@@ -113,8 +114,9 @@ const WeatherDashboard = () => {
         <div className="lg:col-span-2">
           <CurrentWeather city={weatherData.location.city} data={weatherData.current} currentHour={currentHour} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 space-y-6">
           <ClothingAdvisor weatherData={weatherData} />
+          <WeeklyPlanner dailyForecasts={weatherData.daily} />
         </div>
       </div>
 
