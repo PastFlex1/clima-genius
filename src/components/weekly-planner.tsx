@@ -9,11 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Calendar as CalendarIcon, Sparkles, Thermometer, Wind, Umbrella, CloudSun, Eye } from "lucide-react";
+import { Calendar as CalendarIcon, Thermometer, Wind, Umbrella, CloudSun, Eye } from "lucide-react";
 import { Button } from "./ui/button";
 import { getClothingAdvice } from "@/lib/clothing-advice";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -27,6 +27,7 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
   const [recommendation, setRecommendation] = useState<ReturnType<
     typeof getClothingAdvice
   > | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleDaySelect = (date: Date | undefined) => {
     if (!date) return;
@@ -42,6 +43,7 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
         windSpeed: 0, // Mock windspeed as it's not in daily data
       });
       setRecommendation(advice);
+      setIsDialogOpen(false); // Close dialog on select
     }
   };
   
@@ -64,16 +66,16 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center text-center space-y-4">
-        <Popover>
-          <PopoverTrigger asChild>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
             <Button variant="outline" size="lg">
               <CalendarIcon className="mr-2 h-4 w-4" />
               {selectedDay
                 ? format(selectedDay.date, "PPP", { locale: es })
                 : "Elige una fecha"}
             </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
+          </DialogTrigger>
+          <DialogContent className="w-auto p-0">
             <Calendar
               mode="single"
               selected={selectedDay?.date}
@@ -89,8 +91,8 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
               initialFocus
               locale={es}
             />
-          </PopoverContent>
-        </Popover>
+          </DialogContent>
+        </Dialog>
 
         {recommendation && (
           <div className="w-full mt-4">
