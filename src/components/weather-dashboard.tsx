@@ -17,10 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MapPin } from "lucide-react";
+import { Skeleton } from "./ui/skeleton";
 
 const WeatherDashboard = () => {
   const [selectedCityId, setSelectedCityId] = useState<string>(CITIES_DATA[0].id);
-  const [currentHour, setCurrentHour] = useState<number>(-1);
+  const [currentHour, setCurrentHour] = useState<number | undefined>(undefined);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const WeatherDashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (currentHour === -1 || !weatherData) return;
+    if (currentHour === undefined || !weatherData) return;
 
     const [sunriseHour] = weatherData.current.sunrise.split(':').map(Number);
     const [sunsetHour] = weatherData.current.sunset.split(':').map(Number);
@@ -68,8 +69,19 @@ const WeatherDashboard = () => {
   
   if (!isClient) {
     return (
-        <div className="flex justify-center items-center min-h-[50vh]">
-            <div className="text-primary animate-pulse">Cargando datos del clima...</div>
+        <div className="space-y-6 container mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Skeleton className="h-10 w-full sm:w-auto sm:max-w-xs" />
+              <Skeleton className="h-10 w-24" />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <Skeleton className="lg:col-span-2 h-[400px]" />
+              <Skeleton className="lg:col-span-1 h-[400px]" />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <Skeleton className="lg:col-span-2 h-[400px]" />
+              <Skeleton className="lg:col-span-1 h-[400px]" />
+            </div>
         </div>
     );
   }
