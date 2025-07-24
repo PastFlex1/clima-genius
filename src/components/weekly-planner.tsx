@@ -9,12 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Calendar, Sparkles, Thermometer, Wind, Umbrella, CloudSun, Eye } from "lucide-react";
+import { Calendar as CalendarIcon, Sparkles, Thermometer, Wind, Umbrella, CloudSun, Eye } from "lucide-react";
 import { Button } from "./ui/button";
 import { getClothingAdvice } from "@/lib/clothing-advice";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { DayPicker } from "react-day-picker";
+import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
@@ -67,21 +67,23 @@ const WeeklyPlanner = ({ dailyForecasts }: WeeklyPlannerProps) => {
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="outline" size="lg">
-              <Calendar className="mr-2 h-4 w-4" />
+              <CalendarIcon className="mr-2 h-4 w-4" />
               {selectedDay
                 ? format(selectedDay.date, "PPP", { locale: es })
                 : "Elige una fecha"}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0">
-            <DayPicker
+            <Calendar
               mode="single"
               selected={selectedDay?.date}
               onSelect={handleDaySelect}
               disabled={(date) => {
                 const today = new Date();
+                today.setHours(0, 0, 0, 0);
                 const futureDate = new Date();
-                futureDate.setDate(today.getDate() + 7);
+                futureDate.setDate(today.getDate() + 6);
+                futureDate.setHours(23, 59, 59, 999);
                 return date < today || date > futureDate;
               }}
               initialFocus
