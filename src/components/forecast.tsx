@@ -32,7 +32,7 @@ const Forecast = ({ hourly, daily, currentHour }: ForecastProps) => {
       <CardContent className="space-y-6">
         <div>
           <h3 className="font-semibold mb-2 text-primary-foreground/90">
-            Próximas 8 horas
+            Próximas horas
           </h3>
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
